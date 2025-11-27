@@ -22,5 +22,5 @@ jobs:
           script: |
             cd /home/deployer/app
             git pull origin main
-            chmod +x deploy.sh
-            ./deploy.sh
+            chmod +x app/deploy.sh
+            ./app/deploy.sh
