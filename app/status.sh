@@ -1,18 +1,18 @@
 #!/bin/bash
 
-echo "📊 =================================="
-echo "📊 ESTADO DE AMBIENTES"
-echo "📊 =================================="
+echo " =================================="
+echo " ESTADO DE AMBIENTES"
+echo " =================================="
 
 ACTIVE_ENV=$(cat /tmp/active_env 2>/dev/null || echo "none")
-echo "📍 Ambiente activo: $ACTIVE_ENV"
+echo " Ambiente activo: $ACTIVE_ENV"
 echo ""
 
-echo "BLUE (puerto 3001):"
+echo " BLUE (puerto 3001):"
 docker ps --filter name=backend-app-blue --format "   Estado: {{.Status}}" 2>/dev/null || echo "   No desplegado"
 
 echo ""
-echo "GREEN (puerto 3002):"
+echo " GREEN (puerto 3002):"
 docker ps --filter name=backend-app-green --format "   Estado: {{.Status}}" 2>/dev/null || echo "   No desplegado"
 
 echo ""
@@ -25,4 +25,4 @@ else
     echo "   No configurado"
 fi
 
-echo "📊 =================================="
+echo " =================================="

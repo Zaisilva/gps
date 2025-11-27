@@ -26,19 +26,19 @@ else
     OLD_PORT=$PORT_GREEN
 fi
 
-echo "Desplegando en ambiente: $NEW_ENV (puerto $NEW_PORT)"
+echo " Desplegando en ambiente: $NEW_ENV (puerto $NEW_PORT)"
 
 # Construir nueva imagen
-echo " Construyendo imagen Docker..."
+echo "Construyendo imagen Docker..."
 docker build -t ${IMAGE_NAME}:${NEW_ENV} .
 
 # Detener y eliminar contenedor anterior del nuevo ambiente (si existe)
-echo " Limpiando ambiente $NEW_ENV..."
+echo "Limpiando ambiente $NEW_ENV..."
 docker stop backend-app-${NEW_ENV} 2>/dev/null || true
 docker rm backend-app-${NEW_ENV} 2>/dev/null || true
 
 # Iniciar nuevo contenedor
-echo " Iniciando contenedor en ambiente $NEW_ENV..."
+echo "Iniciando contenedor en ambiente $NEW_ENV..."
 docker run -d \
   --name backend-app-${NEW_ENV} \
   -p ${NEW_PORT}:3000 \
@@ -46,11 +46,11 @@ docker run -d \
   ${IMAGE_NAME}:${NEW_ENV}
 
 # Esperar a que el contenedor esté listo
-echo "Esperando que el servicio esté listo..."
+echo " Esperando que el servicio esté listo..."
 sleep 5
 
 # Verificar que el nuevo contenedor funciona
-echo "Verificando salud del nuevo ambiente..."
+echo " Verificando salud del nuevo ambiente..."
 HEALTH_CHECK=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:${NEW_PORT}/api/health)
 
 if [ "$HEALTH_CHECK" != "200" ]; then
@@ -61,10 +61,10 @@ if [ "$HEALTH_CHECK" != "200" ]; then
     exit 1
 fi
 
-echo "Nuevo ambiente funcionando correctamente"
+echo " Nuevo ambiente funcionando correctamente"
 
 # Cambiar NGINX para apuntar al nuevo ambiente
-echo "Cambiando tráfico a ambiente $NEW_ENV..."
+echo " Cambiando tráfico a ambiente $NEW_ENV..."
 
 # Crear configuración de NGINX
 sudo tee /etc/nginx/sites-available/backend-${NEW_ENV}.conf > /dev/null <<EOF
@@ -100,7 +100,7 @@ sudo systemctl reload nginx
 # Guardar ambiente activo
 echo "$NEW_ENV" > /tmp/active_env
 
-echo "Tráfico redirigido a ambiente $NEW_ENV"
+echo " Tráfico redirigido a ambiente $NEW_ENV"
 
 # Esperar un poco antes de detener el ambiente anterior
 echo " Esperando 10 segundos antes de detener ambiente anterior..."
@@ -108,18 +108,18 @@ sleep 10
 
 # Detener ambiente anterior (pero no eliminarlo por si necesitamos rollback)
 if [ "$ACTIVE_ENV" != "none" ]; then
-    echo " Deteniendo ambiente anterior ($OLD_ENV)..."
+    echo "Deteniendo ambiente anterior ($OLD_ENV)..."
     docker stop backend-app-${OLD_ENV} 2>/dev/null || true
     echo "Ambiente $OLD_ENV detenido pero conservado para rollback"
 fi
 
 echo ""
 echo " =================================="
-echo "DESPLIEGUE COMPLETADO"
+echo " DESPLIEGUE COMPLETADO"
 echo " =================================="
 echo " Ambiente activo: $NEW_ENV"
 echo " Puerto interno: $NEW_PORT"
 echo " Acceso público: http://$(curl -s ifconfig.me)"
-echo " Blue (3001): $(docker ps --filter name=backend-app-blue --format '{{.Status}}' 2>/dev/null || echo 'Detenido')"
+echo "Blue (3001): $(docker ps --filter name=backend-app-blue --format '{{.Status}}' 2>/dev/null || echo 'Detenido')"
 echo " Green (3002): $(docker ps --filter name=backend-app-green --format '{{.Status}}' 2>/dev/null || echo 'Detenido')"
 echo " =================================="
