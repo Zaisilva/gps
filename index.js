@@ -2,13 +2,11 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
 app.use(express.json());
 
-// Rutas
 app.get('/', (req, res) => {
   res.json({ 
-message: '¡Hola! ya funciono correctamente BLUE VERSION',    version: '1.0.0'
+message: 'Hola! ya funciono correctamente BLUE VERSION',    version: '1.0.0'
   });
 });
 
@@ -37,7 +35,6 @@ app.post('/api/users', (req, res) => {
   });
 });
 
-// Iniciar servidor
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor corriendo en puerto ${PORT}`);
 });
