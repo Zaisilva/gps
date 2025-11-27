@@ -21,7 +21,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/deployer/app
-            git pull origin main
+            git fetch origin
+            git reset --hard origin/main
             chmod +x app/deploy-blue-green.sh
             chmod +x app/rollback.sh
             chmod +x app/status.sh
