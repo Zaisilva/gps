@@ -17,7 +17,7 @@ echo "Eliminando imagen anterior..."
 docker rmi $IMAGE_NAME 2>/dev/null || true
 
 # Construir nueva imagen
-echo "🔨 Construyendo nueva imagen..."
+echo "Construyendo nueva imagen..."
 docker build -t $IMAGE_NAME .
 
 # Ejecutar nuevo contenedor
