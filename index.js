@@ -8,8 +8,7 @@ app.use(express.json());
 // Rutas
 app.get('/', (req, res) => {
   res.json({ 
-    message: '¡Hola! Backend funcionando correctamente esto es un cambio, gracias',
-    timestamp: new Date().toISOString(),
+    message: '¡Hola! Backend funcionando correctamente  DESPLEGADO AUTOMÁTICAMENTE v3.0',    timestamp: new Date().toISOString(),
     version: '1.0.0'
   });
 });
