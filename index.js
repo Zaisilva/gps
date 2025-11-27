@@ -6,7 +6,7 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
   res.json({ 
-message: 'Hola! ya funciono correctamente GREEN VERSION',  version: '1.0.0'
+message: 'Hola! ya funciono correctamente BLUE  VERSION',  version: '2.0.0'
   });
 });
 
