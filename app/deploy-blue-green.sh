@@ -41,7 +41,8 @@ docker rm backend-app-${NEW_ENV} 2>/dev/null || true
 echo "Iniciando contenedor en ambiente $NEW_ENV..."
 docker run -d \
   --name backend-app-${NEW_ENV} \
-  -p ${NEW_PORT}:3000 \
+  -p ${NEW_PORT}:${NEW_PORT} \
+  -e DEPLOY_ENV=${NEW_ENV} \
   --restart unless-stopped \
   ${IMAGE_NAME}:${NEW_ENV}
 
