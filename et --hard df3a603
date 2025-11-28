@@ -1,0 +1,13 @@
+[33m568990b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Switch back to blue2
+[33mdf3a603[m Switch back to blue2
+[33m634f05d[m Switch back to green
+[33m2d3ba74[m Fix in index.js
+[33mcbc3ea2[m Switch back to Blue
+[33m9517329[m Fix workflow: use git reset instead of git pull
+[33me49fa5b[m Update to Green version
+[33ma02c461[m Update to Blue version
+[33m60548b4[m Add Blue-Green Deployment scripts
+[33me4bff80[m Test auto deploy v3
+[33mce7ff42[m Fix deploy script path in workflow
+[33m4d608ec[m Test automatic deployment
+[33m42206ef[m Initial commit
