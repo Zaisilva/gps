@@ -11,7 +11,7 @@ if [ "$ACTIVE_ENV" == "none" ]; then
 fi
 
 # Determinar el ambiente anterior
-if [ "$ACTIVE_ENV" == "blue" ]; thenmm
+if [ "$ACTIVE_ENV" == "blue" ]; then
     ROLLBACK_ENV="green"
     ROLLBACK_PORT=3002
 else
